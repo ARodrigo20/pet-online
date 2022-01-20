@@ -100,9 +100,9 @@ export class AppComponent implements OnInit {
       },
       {
         type: 'link',
-        label: 'Discover',
+        label: 'Agenda',
         route: 'inf_discover/list',
-        iconClass: 'icon-inf-campaign',
+        iconClass: 'icon-inf-calendar',
         permission: ['influencer'],
       },
       {
@@ -114,9 +114,9 @@ export class AppComponent implements OnInit {
       },
       {
         type: 'link',
-        label: 'Offer',
+        label: 'Cientes y Mascotas',
         route: 'offer/list',
-        iconClass: 'ic-inf-offer',
+        iconClass: 'icon-inf-group',
         permission: ['advertiser', 'influencer'],
       },
       {
