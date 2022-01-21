@@ -1,118 +1,63 @@
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
+import { DashboardPageComponent } from './pages/dashboard/containers';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import {AuthGuard} from './pages/auth/guards';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
+    path: 'dashboard',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: DashboardPageComponent
   },
   {
-    path: 'signin/:id',
-    
-    loadChildren: () => import('./pages/signin/signin.module').then(m => m.SigninModule),
-    data: {
-      pageTitle: 'Signin',
-    }
+    path: 'typography',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/typography/typography.module').then(m => m.TypographyModule)
   },
   {
-    path: 'brandsignup',
-    loadChildren: () => import('./pages/brandsignup/brandsignup.module').then(m => m.BrandSignUpModule),
-    data: {
-      pageTitle: 'BrandSignUp',
-    }
+    path: 'tables',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule)
   },
   {
-    path: 'influencersignup',
-    loadChildren: () => import('./pages/influencersignup/influencersignup.module').then(m => m.InfluencerSignUpModule),
-    data: {
-      pageTitle: 'InfluencerSignUp',
-    }
+    path: 'notification',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/notification/notification.module').then(m => m.NotificationModule)
   },
   {
-    path: 'panel',
-    component: CustomLayoutComponent,
-    children: [
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
-        data: {
-          pageTitle: 'Dashboard',
-        }
-      },
-      {
-        path: 'campaign',
-        loadChildren: () => import('./pages/campaign/campaign.module').then(m => m.CampaignModule),
-        data: {
-          pageTitle: 'Campaign',
-        }
-      },
-      {
-        path: 'inf_discover',
-        loadChildren: () => import('./pages/campaign/influencer-grid/influencer-grid.module').then(m => m.InfluencerGridModule),
-        data: {
-          pageTitle: 'Discover',
-        }
-      },
-      {
-        path: 'discover',
-        loadChildren: () => import('./pages/discover/discover.module').then(m => m.DiscoverModule),
-        data: {
-          pageTitle: 'Discover',
-        }
-      },
-      {
-        path: 'chat',
-        loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule),
-        data: {
-          toolbarShadowEnabled: true,
-          pageTitle: 'Chat',
-        }
-      },
-      {
-        path: 'proposal',
-        loadChildren: () => import('./pages/proposal/proposal.module').then(m => m.ProposalModule),
-        data: {
-          toolbarShadowEnabled: true,
-          pageTitle: 'Chat',
-        }
-      },
-      {
-        path: 'offer',
-        loadChildren: () => import('./pages/offer/offer.module').then(m => m.OfferModule),
-        data: {
-          toolbarShadowEnabled: true,
-          pageTitle: 'Offer',
-        }
-      },
-      {
-        path: 'user',
-        loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
-        data: {
-          toolbarShadowEnabled: true,
-          pageTitle: 'User',
-        }
-      },
-      {
-        path: 'system',
-        loadChildren: () => import('./pages/system/system.module').then(m => m.SystemModule),
-        data: {
-          toolbarShadowEnabled: true,
-          pageTitle: 'User',
-        }
-      }
-    ]
+    path: 'ui',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/ui-elements/ui-elements.module').then(m => m.UiElementsModule)
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: '**',
+    redirectTo: '404'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    // preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled',
-    relativeLinkResolution: 'corrected',
-    anchorScrolling: 'enabled'
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+    useHash: true,
+    preloadingStrategy: PreloadAllModules,
+    relativeLinkResolution: 'legacy'
+})
+  ],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

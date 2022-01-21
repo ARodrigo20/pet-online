@@ -1,31 +1,40 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VexModule } from '../@vex/vex.module';
-import { HttpClientModule } from '@angular/common/http';
-import { CustomLayoutModule } from './custom-layout/custom-layout.module';
-import { PortalModule } from '@angular/cdk/portal';
+import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
+import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthModule } from './pages/auth/auth.module';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    NotFoundComponent
+  ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    SharedModule,
+    AuthModule,
+    DashboardModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-
-    // Vex
-    VexModule,
-    CustomLayoutModule,
-    PortalModule,
+    RouterModule,
+    AppRoutingModule,
     ToastrModule.forRoot(),
+    MatCardModule,
+    MatButtonModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,11 +4,7 @@
 
 export const environment = {
   production: false,
-  // REST_API_SERVER: 'http://127.0.0.1:8000',
-  REST_API_SERVER: 'https://generic-nodejs.herokuapp.com/api/',
-  //For social media API
-  apiUrl: 'http://localhost:4000',
-  facebookAppId: '314930319788683'
+  hmr: false
 };
 
 /*
