@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { FormsModule } from '@angular/forms';
+import { DxButtonModule } from 'devextreme-angular';
 
 import { DashboardPageComponent } from './containers';
 import {
@@ -56,7 +57,8 @@ import { DashboardService } from './services';
     MatInputModule,
     NgApexchartsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    DxButtonModule
   ],
   exports: [
     DailyLineChartComponent
