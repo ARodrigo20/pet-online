@@ -1,4 +1,10 @@
 <mat-list>
+  <mat-list-item [routerLink]="acceso.cRuta" routerLinkActive="active" *ngFor="let acceso of aAccesos">
+    <mat-icon>{{acceso.cIcono}}</mat-icon> {{acceso.cNombre}}
+  </mat-list-item>
+</mat-list>
+
+<mat-list>
   <mat-list-item routerLink="{{routes.DASHBOARD}}" routerLinkActive="active">
     <mat-icon>home</mat-icon> Dashboard
   </mat-list-item>

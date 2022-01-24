@@ -27,9 +27,12 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/devextreme/dist/css/dx.greenmist.compact.css",
+              "./node_modules/devextreme/dist/css/dx.material.teal.light.css",
               "./node_modules/font-awesome/scss/font-awesome.scss",
               "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/ngx-toasta/styles/style-default.css",
+              "./node_modules/ngx-toasta/styles/style-bootstrap.css",
+              "./node_modules/ngx-toasta/styles/style-material.css",
               "src/custom-theme.scss"
             ],
             "scripts": []

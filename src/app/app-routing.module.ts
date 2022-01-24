@@ -12,6 +12,18 @@ const routes: Routes = [
     component: DashboardPageComponent
   },
   {
+    path: 'agenda',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/agenda/agenda.module').then(m => m.AgendaModule)
+  },
+  {
+    path: 'clientes',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/clientes/clientes.module').then(m => m.ClientesModule)
+  },
+  {
     path: 'typography',
     pathMatch: 'full',
     canActivate: [AuthGuard],
