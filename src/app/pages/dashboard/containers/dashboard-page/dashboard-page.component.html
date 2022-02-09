@@ -10,7 +10,7 @@
     </dx-button>
   </mat-toolbar>
 
-  <div class="charts-wrapper">
+  <!-- <div class="charts-wrapper">
     <div class="chart">
       <app-visits-chart [visitsChartData]="visitsChartData$ | async"></app-visits-chart>
     </div>
@@ -23,13 +23,95 @@
     <div class="chart">
       <app-revenue-chart [revenueCharData]="revenueChartData$ | async"></app-revenue-chart>
     </div>
-  </div>
+  </div> -->
 
-  <app-daily-line-chart [dailyLineChartData]="dailyLineChartData$ | async"></app-daily-line-chart>
+  <mat-card-content class="typography-content" *ngIf="point">
+    <div class="typography-content__wrapper">
+      <mat-card class="typography-content__item-wrapper">
+        <div>
+          <strong>Precio: </strong>{{point.price}}<br>
+          <strong>Fecha: </strong>{{point.timeF | date: 'yyyy-MM-dd HH:mm'}}<br>
+          <strong>Accion: </strong>{{point.accion}}<br>
+          <strong>Regresion Lineal (m): </strong>{{point.eval_lineal.pendiente }}<br>
+          <strong>Regresion Lineal (coef): </strong>{{point.eval_lineal.coeficiente }}<br>
+          <strong>Regresion Cuadratica (m): </strong>{{point.eval_cuadratica.funcion[0] }}<br>
+          <strong>Regresion Cuadratica (coef): </strong>{{point.eval_cuadratica.coeficiente }}<br>
+        </div>
+      </mat-card>
+    </div>
+  </mat-card-content>
+
+  <mat-card-content class="typography-content">
+    <div class="typography-content__wrapper">
+      <mat-card class="typography-content__item-wrapper">
+        <dx-chart
+          id="chart"
+          [dataSource]="data"
+          title="Pruebas"
+          [customizePoint]="customizePoint"
+          [customizeLabel]="customizeLabel"
+          (onPointClick)="pointClick($event)"
+        >
+        <!-- <dxo-tooltip
+          [enabled]="true"
+          [shared]="true"
+          [customizeTooltip]="customizeTooltip"
+        > 
+        </dxo-tooltip> -->
+          <dxi-series
+            argumentField="timeF"
+            valueField="price"
+            type="spline"
+            color="#a3aaaa"
+          >
+          <dxo-point size="8" [visible]="true"></dxo-point>
+          </dxi-series>
+          <dxi-series
+            argumentField="timeF"
+            valueField="accion_price"
+            type="scatter"
+            color="#a3aaaa"
+          ></dxi-series>
+          <!-- <dxo-common-series-settings
+          >
+          <dxo-point hoverMode="allArgumentPoints" [visible]="true"></dxo-point>
+          <dxo-point size="20" [visible]="false"></dxo-point>
+          </dxo-common-series-settings> -->
+          
+          <dxo-crosshair [enabled]="true" color="#949494" [width]="3" dashStyle="dot">
+            <dxo-label [visible]="true" backgroundColor="#949494">
+            <dxo-font color="#fff" [size]="12"> </dxo-font>
+            </dxo-label>
+          </dxo-crosshair>
+          <!-- <dxi-value-axis>
+            <dxo-label [customizeText]="customizeText"></dxo-label>
+            <dxi-strip [startValue]="highAverage" color="rgba(255,155,85,0.15)">
+              <dxo-label text="Above average">
+                <dxo-font [color]="highAverageColor"></dxo-font>
+              </dxo-label>
+            </dxi-strip>
+            <dxi-strip [endValue]="lowAverage" color="rgba(97,153,230,0.10)">
+              <dxo-label text="Below average">
+                <dxo-font [color]="lowAverageColor"></dxo-font>
+              </dxo-label>
+            </dxi-strip>
+            <dxo-strip-style>
+              <dxo-label>
+                <dxo-font weight="500" size="14"></dxo-font>
+              </dxo-label>
+            </dxo-strip-style>
+          </dxi-value-axis> -->
+          <dxo-legend [visible]="false"></dxo-legend>
+        </dx-chart>
+      </mat-card>
+    </div>
+  </mat-card-content>
+
+  <!-- <app-daily-line-chart [dailyLineChartData]="dailyLineChartData$ | async"></app-daily-line-chart>
 
   <app-project-stat-chart [projectsStatsData]="projectsStatsData$ | async"></app-project-stat-chart>
 
-  <app-support-requests [supportRequestData]="supportRequestData$ | async"></app-support-requests>
+  <app-support-requests [supportRequestData]="supportRequestData$ | async"></app-support-requests> -->
 
   <app-footer></app-footer>
 </app-layout>

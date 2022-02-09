@@ -13,4 +13,8 @@ export class AuthService{
     autentication(userpass: UserPass): Observable<any> {
         return this.http.post<any>(`${environment.apiBase}` + 'login', userpass, {observe: 'response'});
     }
+
+    getData(): Observable<any> {
+        return this.http.get<any>('http://localhost:3000/data', {observe: 'response'});
+    }
 }

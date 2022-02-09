@@ -13,6 +13,7 @@ import {
   VisitsChartData
 } from '../../models';
 import { BinanceService } from '@app/_general/services/binance.service';
+import { AuthService } from '@app/_general/services/auth.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -28,7 +29,14 @@ export class DashboardPageComponent {
   public visitsChartData$: Observable<VisitsChartData>;
   public projectsStatsData$: Observable<ProjectStatData>;
 
+  data: any[] = [];
+  highAverageColor = '#3DD03E';
+  lowAverageColor = '#FF2D00';
+
+  point: any;
+
   constructor(private service: DashboardService,
+    private authService: AuthService,
     private binaceService: BinanceService) {
     this.dailyLineChartData$ = this.service.loadDailyLineChartData();
     this.performanceChartData$ = this.service.loadPerformanceChartData();
@@ -37,23 +45,41 @@ export class DashboardPageComponent {
     this.supportRequestData$ = this.service.loadSupportRequestData();
     this.visitsChartData$ = this.service.loadVisitsChartData();
     this.projectsStatsData$ = this.service.loadProjectsStatsData();
+
+    this.traerData();
+  }
+
+  traerData() {
+    this.data = [];
+    this.point = null;
+    this.authService.getData().subscribe({
+      next: (resp) => { 
+        console.log("respuesta: ", resp);
+        this.data = resp.body;
+      },
+      error: (error) => { 
+        console.log("error: ", error);
+      }
+    });
   }
 
   prueba() {
-    // let ts = (Math.floor(new Date().getTime())+18000);
-    console.log("prueba: ", (Math.floor(Date.now())+18000));
-    // console.log("prueba2: ", ts);
-    // console.log("crip: ", this.createHmacSignature(ts));
 
-    // this.binaceService.get().subscribe({
-    //   next: (resp) => { 
-    //     console.log("respuesta: ", resp);
-    //   },
-    //   error: (error) => { 
-    //     console.log("error: ", error);
+    this.traerData();
+    // // let ts = (Math.floor(new Date().getTime())+18000);
+    // console.log("prueba: ", (Math.floor(Date.now())+18000));
+    // // console.log("prueba2: ", ts);
+    // // console.log("crip: ", this.createHmacSignature(ts));
+
+    // // this.binaceService.get().subscribe({
+    // //   next: (resp) => { 
+    // //     console.log("respuesta: ", resp);
+    // //   },
+    // //   error: (error) => { 
+    // //     console.log("error: ", error);
         
-    //   }
-    // });
+    // //   }
+    // // });
   }
 
   createHmacSignature(timestamps: number) {
@@ -63,5 +89,50 @@ export class DashboardPageComponent {
 
     //  const hmac = CryptoJS.HmacSHA256(ts, privateKey).toString(CryptoJS.enc.Hex)
     return hmac;
+  }
+
+  customizePoint = (arg: any) => {
+    // console.log("arg: ", arg);
+    if (arg.data['accion'] === "comprar") {
+      return { color: this.highAverageColor };
+    } if (arg.data['accion']  === "vender") {
+      return { color: this.lowAverageColor };
+    }
+  };
+
+  customizeLabel = (arg: any) => {
+    if (arg.data['accion']  === "comprar" ) {
+      return this.getLabelsSettings(this.highAverageColor);
+    } if (arg.data['accion']  === "vender") {
+      return this.getLabelsSettings(this.lowAverageColor);
+    }
+  };
+
+  getLabelsSettings(backgroundColor: any) {
+    return {
+      visible: false,
+      backgroundColor,
+      font: {
+        size: 8
+      }
+    };
+  }
+
+  customizeText(arg: any) {
+    return `${arg.valueText}`;
+  }
+
+  customizeTooltip = (info: any) => ({
+    text: `<p>esto</p>`,
+  });
+
+  // customizeTooltip(info: any) {
+  //   console.log("info: ", info);
+  //   return {text: 'cda'}
+  // };
+
+  pointClick(e) {
+    console.log(e);
+    this.point = e.target.data;
   }
 }

@@ -19,9 +19,9 @@ export class TokenInterceptor implements HttpInterceptor {
         //     console.log("req:: ", request);
         // }
         request = request.clone({
-                    setHeaders: {
-                        'x-mbx-apikey':'y5EqWPbTIR38xTXQIqNTiNXOwsb8OAr366uFTg1Rl6htjt6k1trB8oR6dp8ut7gw'
-                    }
+                    // setHeaders: {
+                    //     'x-mbx-apikey':'y5EqWPbTIR38xTXQIqNTiNXOwsb8OAr366uFTg1Rl6htjt6k1trB8oR6dp8ut7gw'
+                    // }
                 });
         console.log("req: ", request);
         return next.handle(request);
