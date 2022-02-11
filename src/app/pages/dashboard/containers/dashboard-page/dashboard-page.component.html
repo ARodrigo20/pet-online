@@ -44,7 +44,7 @@
   <mat-card-content class="typography-content">
     <div class="typography-content__wrapper">
       <mat-card class="typography-content__item-wrapper">
-        <dx-chart
+        <!-- <dx-chart
           id="chart"
           [dataSource]="data"
           title="Pruebas"
@@ -52,12 +52,6 @@
           [customizeLabel]="customizeLabel"
           (onPointClick)="pointClick($event)"
         >
-        <!-- <dxo-tooltip
-          [enabled]="true"
-          [shared]="true"
-          [customizeTooltip]="customizeTooltip"
-        > 
-        </dxo-tooltip> -->
           <dxi-series
             argumentField="timeF"
             valueField="price"
@@ -72,36 +66,56 @@
             type="scatter"
             color="#a3aaaa"
           ></dxi-series>
-          <!-- <dxo-common-series-settings
-          >
-          <dxo-point hoverMode="allArgumentPoints" [visible]="true"></dxo-point>
-          <dxo-point size="20" [visible]="false"></dxo-point>
-          </dxo-common-series-settings> -->
           
           <dxo-crosshair [enabled]="true" color="#949494" [width]="3" dashStyle="dot">
             <dxo-label [visible]="true" backgroundColor="#949494">
             <dxo-font color="#fff" [size]="12"> </dxo-font>
             </dxo-label>
           </dxo-crosshair>
-          <!-- <dxi-value-axis>
-            <dxo-label [customizeText]="customizeText"></dxo-label>
-            <dxi-strip [startValue]="highAverage" color="rgba(255,155,85,0.15)">
-              <dxo-label text="Above average">
-                <dxo-font [color]="highAverageColor"></dxo-font>
-              </dxo-label>
-            </dxi-strip>
-            <dxi-strip [endValue]="lowAverage" color="rgba(97,153,230,0.10)">
-              <dxo-label text="Below average">
-                <dxo-font [color]="lowAverageColor"></dxo-font>
-              </dxo-label>
-            </dxi-strip>
-            <dxo-strip-style>
-              <dxo-label>
-                <dxo-font weight="500" size="14"></dxo-font>
-              </dxo-label>
-            </dxo-strip-style>
-          </dxi-value-axis> -->
           <dxo-legend [visible]="false"></dxo-legend>
+        </dx-chart> -->
+        <dx-chart id="chart"
+        title="Pruebas"
+        [customizePoint]="customizePoint"
+        [customizeLabel]="customizeLabel" [dataSource]="data">
+        <dxo-zoom-and-pan
+    valueAxis="both"
+    argumentAxis="both"
+    [dragToZoom]="true"
+    [allowMouseWheel]="true"
+    panKey="shift"
+  ></dxo-zoom-and-pan>
+          <dxi-series
+            argumentField="time" 
+            type="candlestick"
+            name="precio"
+            openValueField="open_price"
+            highValueField="max"
+            lowValueField="min"
+            closeValueField="price"
+          >
+            <dxo-reduction color="red"></dxo-reduction>
+          </dxi-series>
+          <dxi-series
+            argumentField="time"
+            valueField="accion_price"
+            type="scatter"
+            color="#a3aaaa"
+          ><dxo-point size="8" [visible]="true"></dxo-point>
+        </dxi-series>
+          <!-- <dxo-common-series-settings argumentField="time" type="candlestick">
+          </dxo-common-series-settings> -->
+          <!-- <dxo-legend itemTextPosition="left"></dxo-legend>
+          <dxi-value-axis [tickInterval]="1">
+            <dxo-title text="US dollars"></dxo-title>
+            <dxo-label>
+              <dxo-format type="currency" [precision]="0"> </dxo-format>
+            </dxo-label>
+          </dxi-value-axis>
+          <dxo-argument-axis [workdaysOnly]="true">
+            <dxo-label format="shortDate"></dxo-label>
+          </dxo-argument-axis>
+          <dxo-export [enabled]="true"></dxo-export> -->
         </dx-chart>
       </mat-card>
     </div>

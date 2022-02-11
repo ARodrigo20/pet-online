@@ -31,7 +31,7 @@ export class DashboardPageComponent {
 
   data: any[] = [];
   highAverageColor = '#3DD03E';
-  lowAverageColor = '#FF2D00';
+  lowAverageColor = '#2278B3';
 
   point: any;
 
