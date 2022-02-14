@@ -29,13 +29,15 @@
     <div class="typography-content__wrapper">
       <mat-card class="typography-content__item-wrapper">
         <div>
-          <strong>Precio: </strong>{{point.price}}<br>
+          <strong>Precio: </strong>{{point.open_price}}<br>
           <strong>Fecha: </strong>{{point.timeF | date: 'yyyy-MM-dd HH:mm'}}<br>
           <strong>Accion: </strong>{{point.accion}}<br>
           <strong>Regresion Lineal (m): </strong>{{point.eval_lineal.pendiente }}<br>
           <strong>Regresion Lineal (coef): </strong>{{point.eval_lineal.coeficiente }}<br>
           <strong>Regresion Cuadratica (m): </strong>{{point.eval_cuadratica.funcion[0] }}<br>
           <strong>Regresion Cuadratica (coef): </strong>{{point.eval_cuadratica.coeficiente }}<br>
+          <strong>Sub Regresion Cuadratica (m): </strong>{{point.sub_eval_cuadratica.funcion[0] }}<br>
+          <strong>Sub Regresion Cuadratica (coef): </strong>{{point.sub_eval_cuadratica.coeficiente }}<br>
         </div>
       </mat-card>
     </div>
@@ -76,6 +78,7 @@
         </dx-chart> -->
         <dx-chart id="chart"
         title="Pruebas"
+        (onPointClick)="pointClick($event)"
         [customizePoint]="customizePoint"
         [customizeLabel]="customizeLabel" [dataSource]="data">
         <dxo-zoom-and-pan
