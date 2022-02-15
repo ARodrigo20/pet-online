@@ -15,6 +15,6 @@ export class AuthService{
     }
 
     getData(): Observable<any> {
-        return this.http.get<any>('http://localhost:3000/data', {observe: 'response'});
+        return this.http.get<any>('http://localhost:4000/data', {observe: 'response'});
     }
 }
